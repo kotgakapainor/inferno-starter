@@ -15,8 +15,8 @@ export default class Home extends Component {
         return <section className="page-home">
             <h1> Inferno Starter Quick Start</h1>
             <ol>
-                <li><a href=''>Visit Repository</a></li>
-                <li><a href=''>Repo documentation</a></li>
+                <li><a href='https://github.com/kotgakapainor/inferno-starter'>Visit Repository</a></li>
+                <li><a href='https://github.com/kotgakapainor/inferno-starter/blob/master/README.md'>Repo documentation</a></li>
                 <li><a href='https://infernojs.org/docs/guides/installation'>Inferno documentation</a></li>
                 <li><a href='https://mobx.js.org/'>MobX documentation</a></li>
             </ol>
