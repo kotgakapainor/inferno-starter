@@ -112,7 +112,7 @@ class MyComponent extends Component {
 ## What is `inject` and `@observer` ?
 
 The `@inject` decorator injects stores into your components. Now you have access to all the methods to manipulate and read the `state`
-The `@observer` decorator keeps your components up to date with any changes in your stores. 
+The `@observer` decorator keeps your components up to date with any changes in your state/stores. 
 
 *Note: `@observer` should be the innermost decorator when used with other decorators or higher-order-components* (https://mobx.js.org/refguide/observer-component.html)
 
@@ -193,22 +193,22 @@ class MyPage extends Component {
         //only load dependent data if state was updated with the right data we called above
         if(state.data.slug === params.slug) await store.data.loadChildData
 
-        //only update ui if onEnter has been called on the server
-        if(typeof window === 'undefined') store.ui.doServerUIStuff()
+        //only do stuff if onEnter has been called on the server
+        if(typeof window === 'undefined') store.ui.doServerStuff()
     }
   // ...
 }
 
 //route which imports the "MyPage" component
 {
-  path: parentRoute => `${parentRoute}/mypage`,
+  path: parentRoute => `${parentRoute}/mypage-:slug`,
   component: generateAsyncRouteComponent({
     loader: () => import( /* webpackChunkName: "my-page" */ '../pages/MyPage'),
   }),
 }
 ```
 
-**You still can use inferno's own lifecycle methods like `componentDidMount` (but will only on client-side)**
+**You still can use inferno's own lifecycle methods like `componentDidMount` (but will only work on client-side on route change)**
 
 
 ## How am I able to modify the returned html outside of the app container?
@@ -276,14 +276,14 @@ Each route can handle the same properties as the react-router v4+ / inferno-rout
 * `exact, strict` - (https://reacttraining.com/react-router/web/api/Route/exact-bool)
 * `component` - here we pass `generateAsyncRouteComponent` to dynamically import our component
 
-You can name the exported components via a magic comment (https://webpack.js.org/api/module-methods/#magic-comments). When running `npm run build:prod:bundles` you will be able to see the exported bundles with the stated name.
+You can name the exported components via a magic comment (https://webpack.js.org/api/module-methods/#magic-comments). When running `npm run build:prod:bundles` you will be able to see the exported bundles with the given name.
 
 
 ### Why do we need a centralized routes config?
 
 Inferno Version >= 4 does not have a centralized routes config. Because we want to load stuff async on server side and client side we need to know about the possible routes we are going to hit. 
 
-With the centralized route config we are able to fetch the needed bundles and read the static `onEnter` method of those. 
+With the centralized route config we are able to fetch the needed bundles and read/call the static `onEnter` method of those. 
 
 **this functionality is highly inspired by:**
 
@@ -298,7 +298,7 @@ With the centralized route config we are able to fetch the needed bundles and re
 - [ ] Hot Reloading server
 - [ ] use createPortal for manipulating stuff in the `<head>` (https://github.com/infernojs/inferno#createportal-package-inferno)
 - [ ] use css modules
-- [ ] SAAS - alternatively deploy koa server to google functions (firebase) or similar 
+- [ ] SAAS - alternatively deploy koa server to firebase, azure or lambda
 
 ## Author
 
