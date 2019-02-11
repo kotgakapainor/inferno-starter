@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de-DE" prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>{title}</title>
+        <meta name="title" content="{title}">
+        <meta property="og:title" content="{title}">
+        <meta name="description" content="{description}">
+        <meta property="og:description" content="{description}">
+        <meta property="og:type" content="website">
+        <link rel="manifest" href="/manifest.json" defer="defer" >
+        <meta name="mobile-web-app-capable" content="yes" />
+        <link href="{bundleURL}{bundleCSS}?" rel="stylesheet" media="all">
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,900" rel="stylesheet">
+    </head>
+    <body>
+        <script> window.__STATE = {state} </script>
+        <div id="app">{children}</div>
+        <script src="{bundleURL}{bundleJS}" async></script>
+    </body>
+</html>

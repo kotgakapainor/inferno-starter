@@ -1,0 +1,38 @@
+.header{
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:1em 0;
+    font-weight: 900;
+
+    a{
+        text-decoration: none;
+    }
+
+    &--logo{
+        font-size: 2em;
+        color: #222222;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        line-height: 1;
+        text-align: center;
+    }
+
+    &--menu{
+        color: white;
+        font-size:1.2em;
+
+        .menu--items{
+            display: flex;
+
+            li{
+                padding:1em 1.5em;
+
+                &:last-child{
+                    padding-right:0;
+                }
+            }
+        }
+    }
+}

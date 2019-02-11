@@ -1,0 +1,20 @@
+.page-home{
+    margin-left: auto;
+    width: max-content;
+    border-radius: 30px;
+    border: 2px solid #212121;
+    padding: 1em 2em;
+    position: relative;
+    text-align: right;
+    margin-top: 10vh;
+    font-size: calc(0.9em + 0.5vw);
+
+
+    h1{
+        margin-bottom: 1em;
+    }
+
+    li{
+        margin: calc(0.1em + 0.3vh) 0;
+    }
+}

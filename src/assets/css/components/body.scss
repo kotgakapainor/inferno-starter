@@ -1,0 +1,36 @@
+/* 
+Background Stuff
+*/
+
+body{
+    background: beige;
+    color: #fff;
+}
+
+
+.content{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding:0 2em;
+}
+
+
+.layout-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0%;
+    top: 0;
+    z-index: -1;
+    overflow: hidden;
+
+    background: linear-gradient(200deg, #e41f1c, transparent);
+}
+
+.inferno-logo{
+    margin-top: 12vh;
+    margin-left: -50vw;
+    max-height: 171vh;
+    opacity: 0.9;
+}
