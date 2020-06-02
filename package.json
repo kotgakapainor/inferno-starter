@@ -29,6 +29,7 @@
     "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.0",
+    "core-js": "^3.6.5",
     "fast-async": "^6.3.7",
     "history": "^4.7.2",
     "inferno": "^6.2.1",

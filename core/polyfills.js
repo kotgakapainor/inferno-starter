@@ -1,9 +1,5 @@
 'use strict';
 
-// For IE 11
-if (typeof Promise === 'undefined') {
-    global.Promise = require('core-js/es6/promise')
-}
 
 global.Exception = class Exception extends Error {
     constructor(message) {

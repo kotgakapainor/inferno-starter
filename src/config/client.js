@@ -4,19 +4,13 @@ import '../assets/css/index.scss'
 import 'isomorphic-fetch'
 import '../../core/polyfills'
 import '../../core/globals'
-import { hydrate } from 'inferno-hydrate'
-import { Router } from 'inferno-router'
+import { render } from 'inferno'
 import { Provider } from 'inferno-mobx'
-import createBrowserHistory from 'history/createBrowserHistory'
-import onEnter from '../../core/onEnter'
 import autorun from './autorun'
 import createContext from './context'
 import State from '../stores/state'
-import routes from './routes'
-import { convertCustomRouteConfig, ensureReady } from '../helpers/irv4Helpers'
-import renderRoutes from '../helpers/inferno-router-config/renderRoutes'
-
-const routeConfig = convertCustomRouteConfig(routes)
+import hydrationConfig from '../helpers/hydrationConfig'
+import hydratedPortal from '../helpers/hydratedPortal'
 
 
 if (['production', 'staging'].includes(process.env.NODE_ENV)) {
@@ -27,26 +21,21 @@ if (['production', 'staging'].includes(process.env.NODE_ENV)) {
 }
 
 const context = createContext(new State(window.__STATE))
-const history = createBrowserHistory()
 
-// React to changes
-autorun(context, history)
-
-// Fetch data on route change
-history.listen(() => {
-  onRouteUpdate()
-})
 
 // Render our component according to our routes
 async function renderApp() {
-  const isReady = await ensureReady(routeConfig)
-  if(isReady) 
-    hydrate( <Provider { ...context } >
-      <Router history={ history } >
-        { renderRoutes(routeConfig, context) }
-      </Router> 
-    </Provider>, document.getElementById('app'))
-}
+  const markers = Array.from(document.querySelectorAll('script[type="application/hydration-marker"]'))
+  const openPortals = markers && markers.map(marker =>{
+    const data = JSON.parse(marker.getAttribute("data-hdata"))
+    const ComponentToHydrate = hydrationConfig[data.name]
+    return hydratedPortal(<ComponentToHydrate {...data.props}/> , marker)
+  })
+
+    render( <Provider { ...context } >
+        { openPortals }
+    </Provider>, document.getElementById('hydrated-app'))
+  }
 renderApp()
 
 // Enable hot reloading if available
@@ -54,13 +43,3 @@ if (module.hot) {
   module.hot.accept(renderApp)
 }
 
-
-/* 
-* Helper
-*/
-async function onRouteUpdate() {
-  const loadedComponent = (await ensureReady(routeConfig)).filter(Boolean)
-  // Fetch data on route change
-  onEnter(loadedComponent, context) 
-
-}

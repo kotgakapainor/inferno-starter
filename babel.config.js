@@ -10,7 +10,7 @@ module.exports = function (api) {
     [
       "@babel/preset-env",
       {
-        "loose": true,
+        corejs: 3,
         "useBuiltIns": "usage", // polyfills are matched by target environment
         "exclude": ['transform-regenerator', 'transform-async-to-generator'] //because we are using fast-async we exclude the transforms from the preset, else we would need regenerator Runtime and other bloat
       }
